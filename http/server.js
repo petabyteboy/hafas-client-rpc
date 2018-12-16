@@ -7,7 +7,17 @@ const createServerAdapter = require('../lib/server-adapter')
 
 const port = process.env.PORT || 3000;
 const hafas = createHafas(dbProfile, 'my-awesome-program')
-const onMessage = createServerAdapter(hafas)
+const hafas2 = {...hafas, journeys: (...args) => {
+	return hafas.journeys.apply(hafas, args)
+	.then((res) => {
+		return {
+			journeys: res,
+			earlierRef: res.earlierRef,
+			laterRef: res.laterRef
+		}
+	})
+}}
+const onMessage = createServerAdapter(hafas2)
 
 http.createServer((req, res) => {
 	if (req.method !== 'POST') {
