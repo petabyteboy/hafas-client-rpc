@@ -3,6 +3,7 @@
 	"description": "Make JSON-RPC calls to hafas-client via WebSockets.",
 	"version": "3.0.0",
 	"main": "index.js",
+	"bin": "http/server.js",
 	"files": [
 		"index.js",
 		"ws",
